@@ -1,7 +1,18 @@
 function SimpleTransfer(options) {
-    options = options || {};
-    var from = options.from || null;
-    var to = options.to || null;
+    options = Object.assign({
+        from: null,
+        to: null,
+        clone: true,
+        transition: '1.8s all ease',
+        opacity: .45,
+        transferClass: 'transfer-element',
+        transferCss: {},
+        start: null,
+        end: null,
+    }, options || {})
+
+    var from = options.from;
+    var to = options.to;
 
     if (typeof from === 'string') {
         from = document.querySelector(from);
@@ -57,8 +68,8 @@ function SimpleTransfer(options) {
                 transfer = document.createElement('div');
             }
 
-            transfer.setAttribute('class', options.transferClass || 'temp-transfer-element');
-            transfer.style.transition = options.transition || '1.8s all ease';
+            transfer.setAttribute('class', options.transferClass);
+            transfer.style.transition = options.transition;
             transfer.style.position = toFixed ? 'fixed' : 'absolute';
             transfer.style.top = (startPosition.top - fixTop) + 'px';
             transfer.style.left = (startPosition.left - fixLeft) + 'px';
@@ -116,6 +127,6 @@ function SimpleTransfer(options) {
         transfer.style.left = (endPosition.left - fixLeft) + 'px';
         transfer.style.width = toRect.width + 'px';
         transfer.style.height = toRect.height + 'px';
-        transfer.style.opacity = options.opacity || .45;
+        transfer.style.opacity = options.opacity;
     }, 100);
 }
