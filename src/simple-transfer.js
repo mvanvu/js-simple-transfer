@@ -46,7 +46,8 @@ function SimpleTransfer(options) {
             return '';
         },
         createTransfer = function () {
-            var transfer = document.createElement('div');
+            var transfer = from.cloneNode(true);
+            transfer.removeAttribute('id');
             transfer.setAttribute('class', options.transferClass || 'temp-transfer-element');
             transfer.style.transition = options.transition || '1.8s all ease';
             transfer.style.position = toFixed ? 'fixed' : 'absolute';
@@ -102,5 +103,6 @@ function SimpleTransfer(options) {
         transfer.style.left = (endPosition.left - fixLeft) + 'px';
         transfer.style.width = toRect.width + 'px';
         transfer.style.height = toRect.height + 'px';
+        transfer.style.opacity = options.opacity || .45;
     }, 100);
 }
