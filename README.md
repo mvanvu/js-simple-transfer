@@ -8,7 +8,7 @@ Transfer element to element with animation without jQuery and jQuery UI. Very sm
 <div style="width: 650px; position: relative; margin: auto">
     <h2>JavaScript Simple Transfer</h2>
     <button type="button" id="button" style="margin: 15px 0">Transfer</button>
-    <div id="div1" style="width: 155px; height: 185px; background-color: teal"></div>
+    <img id="img" src="https://www.w3schools.com/tags/img_girl.jpg" alt="" style="display: block" width="180"/>
     <div id="div2" style="width: 55px; height: 55px; background-color: blue; position: absolute; left: 90%; top: 50%"></div>
 </div>
 ```
@@ -20,11 +20,10 @@ Transfer element to element with animation without jQuery and jQuery UI. Very sm
 
     document.getElementById('button').addEventListener('click', function () {
         new SimpleTransfer({
-            from: '#div1',
+            from: '#img',
             to: '#div2',
             transferCss: {
-                border: '1px solid #eee',
-                backgroundColor: 'purple',
+                border: '4px solid #ddd',
             },
             callBack: function (from, to) {
                 console.log([from, to])
