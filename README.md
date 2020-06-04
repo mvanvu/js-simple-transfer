@@ -25,9 +25,16 @@ Transfer element to element with animation without jQuery and jQuery UI. Very sm
             transferCss: {
                 border: '4px solid #ddd',
             },
-            callBack: function (from, to) {
-                console.log([from, to])
-            }
+            /**
+             * clone: true,
+             * opacity: .45,
+             */
+            start: function () { // optional
+                console.log(this); // this === transfer element
+            },
+            end: function () { // optional
+                console.log('Ended.');
+            },
         });
     });
 

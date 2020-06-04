@@ -46,8 +46,17 @@ function SimpleTransfer(options) {
             return '';
         },
         createTransfer = function () {
-            var transfer = from.cloneNode(true);
-            transfer.removeAttribute('id');
+            var
+                clone = typeof options.clone === 'boolean' ? options.clone : true,
+                transfer;
+
+            if (clone === true) {
+                transfer = from.cloneNode(true);
+                transfer.removeAttribute('id');
+            } else {
+                transfer = document.createElement('div');
+            }
+
             transfer.setAttribute('class', options.transferClass || 'temp-transfer-element');
             transfer.style.transition = options.transition || '1.8s all ease';
             transfer.style.position = toFixed ? 'fixed' : 'absolute';
@@ -60,6 +69,10 @@ function SimpleTransfer(options) {
                 for (var css in options.transferCss) {
                     transfer.style[css] = options.transferCss[css];
                 }
+            }
+
+            if (typeof options.start === 'function') {
+                options.start.call(transfer);
             }
 
             return transfer;
@@ -81,8 +94,8 @@ function SimpleTransfer(options) {
             transfer.removeEventListener(endEvent, endCallBack);
             body.removeChild(transfer);
 
-            if (typeof options.callBack === 'function') {
-                options.callBack.call(window, from, to);
+            if (typeof options.end === 'function') {
+                options.end.call(window);
             }
         };
 
@@ -92,8 +105,8 @@ function SimpleTransfer(options) {
         setTimeout(function () {
             body.removeChild(transfer);
 
-            if (typeof options.callBack === 'function') {
-                options.callBack.call(window, from, to);
+            if (typeof options.end === 'function') {
+                options.end.call(window);
             }
         }, 1500);
     }
